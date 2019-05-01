@@ -89,3 +89,5 @@ DESC emp
 
 2-7.
 DROP TABLE emp, dept
+
+Nu met update naar GITHUB
