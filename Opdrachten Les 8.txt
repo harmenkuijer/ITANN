@@ -1,0 +1,143 @@
+1.1
+SELECT l.location_id, l.street_address, l.city, l.state_province, c.country_name
+FROM locations l JOIN countries c
+USING(country_id)
+
+1.2
+SELECT last_name, department_id, department_name
+FROM employees e JOIN departments d
+USING(department_id)
+
+1.3
+SELECT e.last_name, e.job_id, d.department_id, d.department_name
+FROM employees e JOIN departments d
+ON e.department_id = d.department_id
+JOIN locations l 
+ON d.location_id = l.location_id
+WHERE city = 'Toronto'
+
+1.4
+SELECT worker.last_name AS Employee, worker.employee_id AS 'Emp#', manager.last_name AS Manager, 
+manager.employee_id AS 'Mgr#'
+FROM employees worker JOIN employees manager
+ON worker.manager_id = manager.employee_id
+
+1.5
+SELECT worker.last_name AS Employee, worker.employee_id AS 'Emp#', manager.last_name AS Manager, 
+manager.employee_id AS 'Mgr#'
+FROM employees worker LEFT JOIN employees manager
+ON worker.manager_id = manager.employee_id
+
+1.6
+SELECT emp.last_name, emp.department_id, coll.last_name
+FROM employees emp JOIN employees coll
+ON coll.department_id = emp.department_id
+WHERE coll.employee_id != emp.employee_id
+
+1.7
+SELECT e.last_name, e.job_id, d.department_name, e.salary, j.grade_level
+FROM employees e JOIN departments d
+ON e.department_id = d.department_id
+JOIN job_grades j
+ON salary BETWEEN lowest_sal AND highest_sal
+
+1.8
+SELECT last_name, hire_date
+FROM employees
+WHERE hire_date > (SELECT hire_date FROM employees WHERE last_name = 'Davies')
+
+1.9
+SELECT emp.last_name, emp.hire_date, man.last_name, man.hire_date
+FROM employees emp JOIN employees man
+ON emp.manager_id = man.employee_id WHERE emp.hire_date < man.hire_date
+
+1.10
+SELECT department_name, count(*) AS count
+FROM departments d JOIN employees e
+ON d.department_id = e.department_id
+GROUP BY department_name
+ORDER BY department_name
+
+1.11
+SELECT job_title, round(avg(salary)) AS 'Average Salary'
+FROM jobs j JOIN employees e
+ON j.job_id = e.job_id
+GROUP BY job_title
+ORDER BY job_title
+
+1.12
+SELECT e.last_name, e.salary - j.min_salary
+FROM employees e JOIN jobs j
+ON e.job_id = j.job_id
+
+1.13
+SELECT e.last_name, l.city, c.country_name
+FROM locations l JOIN countries c
+ON l.country_id = c.country_id
+JOIN departments d
+ON l.location_id = d.location_id
+JOIN employees e
+ON e.department_id = d.department_id
+ORDER BY city, last_name
+
+1.14
+SELECT last_name, salary
+FROM employees e JOIN jobs j
+ON e.job_id = j.job_id
+WHERE salary = j.min_salary
+
+1.15
+Geen idee
+
+2.1
+SELECT last_name, hire_date
+FROM employees
+WHERE department_id = (SELECT department_id FROM employees WHERE last_name = 'Zlotkey')
+
+2.2
+SELECT employee_id, last_name, salary
+FROM employees
+WHERE salary > (SELECT avg(salary) FROM employees)
+ORDER BY salary 
+
+2.3
+Geen idee
+
+2.4
+SELECT e.last_name, e.job_id, e.department_id
+FROM employees e JOIN departments d
+ON e.department_id = d.department_id
+WHERE location_id = 1700
+
+2.5
+SELECT last_name, salary
+FROM employees
+WHERE manager_id = 100
+
+2.6
+SELECT e.department_id, e.last_name, e.job_id
+FROM employees e JOIN departments d
+ON e.department_id = d.department_id
+WHERE d.department_id = (SELECT department_id FROM departments WHERE department_name = 'Executive')
+
+2.7
+SELECT last_name
+FROM employees 
+WHERE salary > (SELECT max(salary) FROM employees WHERE department_id = 60)
+
+2.8 
+Geen idee
+
+2.9
+SELECT first_name, last_name, salary
+FROM employees
+WHERE salary = (SELECT min(salary) FROM employees)
+
+2.10
+SELECT first_name, last_name
+FROM employees
+WHERE hire_date < (SELECT hire_date FROM employees WHERE last_name = 'Bell')
+ORDER BY first_name
+
+2.11
+Geen idee
